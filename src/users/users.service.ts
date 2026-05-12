@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class UsersService {
@@ -16,6 +17,7 @@ export class UsersService {
       username: dto.username,
       bio: dto.bio || undefined,
       followers: dto.followers || 0,
+      apiKey: randomUUID(), // ← genera el apiKey automáticamente
     });
     return this.usersRepository.save(user);
   }
